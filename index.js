@@ -6,10 +6,11 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // ctx.strokeStyle = "#BADA55";
-ctx.lineJoin = "round"; // end of the line
-ctx.lineCap = "round"; // a line meets another line
-ctx.lineWidth = 20;
-ctx.globalCompositeOperation = 'lighten';
+ctx.lineJoin = "bevel"; // a line meets another line
+ctx.lineCap = "miter"; // end of the line
+ctx.lineWidth = 30;
+// ctx.globalAlpha = .8;
+ctx.globalCompositeOperation = "lighten";
 
 let isDrawing = false;
 let lastX = 0;
@@ -28,17 +29,21 @@ function draw(e) {
   [lastX, lastY] = [e.offsetX, e.offsetY];
   lastX = e.offsetX;
   lastY = e.offsetY;
+  ctx.scale(-1, 1);
+  ctx.transform(1, 1, 0, 1, 0, 0);
+  // ctx.miterLimit = 1000;
   hue += 2;
 
   if (hue >= 360) {
-    hue = 5;
+    hue = 3;
   }
 
-  if (ctx.lineWidth >= 20 || ctx.lineWidth <= 5) {
+  if (ctx.lineWidth >= 30 || ctx.lineWidth <= 2) {
     direction = !direction;
-  } if(direction) {
+  }
+  if (direction) {
     ctx.lineWidth++;
-  }else {
+  } else {
     ctx.lineWidth--;
   }
 }
